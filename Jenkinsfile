@@ -45,7 +45,7 @@ pipeline {
     }
     stage('code promotion') {
       steps {
-        sh "cp /var/www/html/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}".jar /var/www/html/rectangles/all/green/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}".jar
+        sh "cp /var/www/html/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}".jar /var/www/html/rectangles/all/green/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
       }
     }
   }
