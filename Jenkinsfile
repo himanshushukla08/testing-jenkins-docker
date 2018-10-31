@@ -25,7 +25,7 @@ pipeline {
         sh "cp dist/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar /var/www/html/rectangles/all/"
       }
     }
-    stage("Test on CentOS") {
+    stage('Test on CentOS') {
       agent {
         docker 'fabric8/java-centos-openjdk8-jdk:1.4.0'
       }
@@ -34,13 +34,18 @@ pipeline {
         sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
       }
     }
-    stage("Test on Debian") {
+    stage('Test on debian') {
       agent {
         docker 'openjdk:8u121-jre'
       }
       steps {
         sh "curl $JENKINS_IP/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar -o rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar"
         sh "java -jar rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}.jar 3 4"
+      }
+    }
+    stage('code promotion') {
+      steps {
+        sh "cp /var/www/rectangles/all/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}".jar /var/www/rectangles/all/green/rectangle_${env.MAJOR_VERSION}.${env.BUILD_NUMBER}".jar
       }
     }
   }
